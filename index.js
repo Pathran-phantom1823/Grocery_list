@@ -1,24 +1,55 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser')
 var http = require('http').Server(app);
-var Item = require('./public/models/item.js')
+var Item = require('./public/models/item')
 const path = require('path');
-// const bodyParser = require('body-parser');
+var port = process.env.PORT || 3000;
 
-app.set('views', path.join(__dirname, 'views'));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.all('/item/all', function (req, res) {
-    readfile(req, res)
-})
-app.all('/item/:id', function (req, res) {
-    
-})
-app.all('/item/create', function (req, res) {
-    Item.save({item: req.query.item,  qty: req.query.qty, priorityNum: req.query.priority},function(err){
-        if (err) return handleError(err);
-    })
+app.use(express.static(path.resolve(__dirname, '/public')));
+app.use(express.static(path.resolve(__dirname, '/views')));
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, +'views/index.html'));
+});
+
+
+
+app.post('/create', function (req, res) {
+    var grocery = new Item({
+        item:req.body.item,
+        qty: req.body.qty,
+        priority: req.body.priority
+    });
+    console.log(grocery)
+    if(Item.find({item:req.body.item,$exists:true})){
+        console.log('Item already exists Enter another Item')
+    }else{
+    grocery.save()
+        .then(success => {
+            res.send("saved")
+        })
+        .catch(err => {
+            res.status(400).send("unable to save")
+        })
+    }
 })
 
-app.use(express.static(path.resolve('./public')))
-http.listen(3000);
-console.log("Running...")
+app.get('/all', function(req,res){
+    var data = Item.db.collection('items').find();
+        data.each((err, item)=>{
+            if(item!= null){
+              return "<p>"+item.item + "</p>"
+            }
+        })
+})
+
+
+
+http.listen(port, function () {
+    console.log("running on port:" + port);
+
+})

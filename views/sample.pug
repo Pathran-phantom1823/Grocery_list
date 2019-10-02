@@ -1,0 +1,71 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  meta(http-equiv='X-UA-Compatible' content='ie=edge')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css')
+  link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
+  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
+  link(rel='stylesheet' href='style.css')
+  script(src='/home.js')
+  title Document
+h2#header.ui.center.aligned.icon.header
+  i.shopping.cart.icon
+  |         Shop List
+.jumbotron
+  // Button trigger modal
+  button.positive.ui.button(type='button' data-toggle='modal' data-target='#exampleModal')
+    i.shopping.cart.plus.icon
+    |             Add Item
+  // Modal
+  #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          h2.ui.header
+            i.shopping.cart.icon
+            .content
+              | Shopping Form
+              .sub.header Fill Up the Form
+          button.close(type='button' data-dismiss='modal' aria-label='Close')
+            span(aria-hidden='true') &times;
+        .modal-body
+          form.needs-validation(novalidate='')
+            .form-group
+              label(for='item')
+                i.shopping.bag.icon
+                | Item Name:
+              input#item.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter Item name' required='')
+              .invalid-feedback
+                | Please enter an Item Name
+            .form-group
+              label(for='qty')
+                i.tags.icon
+                | Quantity:
+              input#qty.form-control(type='number' placeholder='Quantity' required='')
+              .invalid-feedback
+                | Please enter a Quantity
+            .form-group
+              label(for='priority')
+                i.shopping.basket.icon
+                | Priority:
+              input#priority.form-control(type='number' placeholder='Priority' required='')
+              .invalid-feedback
+                | Please enter you Priority
+            button#saveBtn.positive.ui.button(type='submit') Add
+        .modal-footer
+          button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+  table.ui.celled.table
+    thead
+      tr
+        th Item Name
+        th Quantity
+        th Priority
+    tbody
+        tr=item.item
+        tr= item.qty
+        tr=item.priority
+script(src='app.js')

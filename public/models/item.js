@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/groceries', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://127.0.0.1/groceries', { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, "connection error"));
@@ -8,10 +9,10 @@ db.once('open', function (callback) {
 })
 
 var ItemSchema = new mongoose.Schema({
-    item: { type: String, required: true },
-    qty: { type: Number, required: true },
-    priority: { type: Number, required: true },
-})
+    item: {type:String, required:true},
+    qty: {type:Number, required:true},
+    priority: {type:Number, required:true}
+},{visionkey:"_something"})
 
 var Item = mongoose.model('Item', ItemSchema);
 module.exports = Item;
