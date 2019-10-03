@@ -9,27 +9,26 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.set('views', path.join(__dirname, 'views'));
+// app.use('views', path.join(__dirname, 'views'));
 
 app.all('/', function (req, res) {
     Item.find({}, (err, result)=>{
         res.render("sample.pug", {items:result})
     })
-    // res.sendFile(path.join(__dirname, +'views/index.html'));
 });
 
 
 
-app.post('/create', function (req, res) {
+app.post('/item/create', function (req, res) {
     var grocery = new Item({
         item:req.body.item,
         qty: req.body.qty,
         priority: req.body.priority
     });
-    console.log(grocery)
-    if(Item.find({item:req.body.item,$exists:true})){
-        console.log('Item already exists Enter another Item')
-    }else{
+    // console.log(grocery)
+    // if(Item.find({item:req.body.item,$exists:true})){
+    //     console.log('Item already exists Enter another Item')
+    // }else{
     grocery.save()
         .then(success => {
             res.send("saved")
@@ -37,7 +36,7 @@ app.post('/create', function (req, res) {
         .catch(err => {
             res.status(400).send("unable to save")
         })
-    }
+    // }
 })
 
 // app.get('/all', function(req,res){
