@@ -9,7 +9,7 @@ head
   script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
   link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
-  //- script(src='/scripts/home.js')
+  script(src='/scripts/home.js')
   style
     include style.css
   title Document
@@ -18,7 +18,7 @@ h2#header.ui.center.aligned.icon.header
   |         Shop List
 .jumbotron
   // Button trigger modal
-  button.positive.ui.button(type='button' data-toggle='modal' data-target='#exampleModal')
+  button.positive.ui.button(type='button' data-toggle='modal' data-target='#exampleModal' id="addBtn")
     i.shopping.cart.plus.icon
     |             Add Item
   // Modal
@@ -56,7 +56,7 @@ h2#header.ui.center.aligned.icon.header
               input#priority.form-control(type='number' placeholder='Priority' required='')
               .invalid-feedback
                 | Please enter you Priority
-            button#saveBtn.positive.ui.button(type='submit') Add
+            button#saveBtn.positive.ui.button(type='button' value="add") Add
         .modal-footer
           button.btn.btn-secondary(type='button' data-dismiss='modal') Close
   table.ui.celled.table
@@ -68,54 +68,15 @@ h2#header.ui.center.aligned.icon.header
     tbody
                 each item in items
                     tr
-                        td= item.item
-                        td= item.qty
-                        td= item.priority
+                        td(class="item")= item.item
+                        td(class="qty")= item.qty
+                        td(class="priority")= item.priority
                         td
                           center
                               div(class="ui buttons")
-                                button(class="ui positive button") Edit
+                                button(class="ui positive button" id="editBtn") Edit
                                 div(class="or")
-                                button(class="ui negative button") Delete
-//- script(src='/scripts/app.js')
-script.
-    (function() {
-    'use strict';
-    window.addEventListener('load', function() {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName('needs-validation');
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-  })();
+                                button(class="ui negative button" id="deleteBtn") Delete
+script(src='/scripts/app.js')
 
-    $(document).ready(function(){
-    $("#saveBtn").on('click', function () {
-        console.log("click")
-        var item = $('#item').val();
-        var qty = $('#qty').val();
-        var priority = $('#priority').val();
-        $.post({
-            url: '/item/create',
-            // method: "POST",
-            data:{item:item, qty: qty, priority:priority},
-            error:(e)=>{
-                console.log(e)
-            },
-            success: function (data) {
-                console.log(data);
-            }
-          })
-        })
-    })
-
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
   

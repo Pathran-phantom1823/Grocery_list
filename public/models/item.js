@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+mongoose.set('useCreateIndex', true)
 mongoose.connect('mongodb://127.0.0.1/groceries', { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 
@@ -9,9 +10,9 @@ db.once('open', function (callback) {
 })
 
 var ItemSchema = new mongoose.Schema({
-    item: {type:String, required:true},
+    item: {type:String, required:true, unique:true},
     qty: {type:Number, required:true},
-    priority: {type:Number, required:true}
+    priority: {type:Number, required:true, max: 3}
 },{visionkey:"_something"})
 
 var Item = mongoose.model('Item', ItemSchema);

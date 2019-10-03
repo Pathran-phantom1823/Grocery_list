@@ -25,10 +25,6 @@ app.post('/item/create', function (req, res) {
         qty: req.body.qty,
         priority: req.body.priority
     });
-    // console.log(grocery)
-    // if(Item.find({item:req.body.item,$exists:true})){
-    //     console.log('Item already exists Enter another Item')
-    // }else{
     grocery.save()
         .then(success => {
             res.send("saved")
@@ -36,8 +32,11 @@ app.post('/item/create', function (req, res) {
         .catch(err => {
             res.status(400).send("unable to save")
         })
-    // }
 })
+
+// app.put('/item/edit', function(req, res){
+//     var items = {}
+// })
 
 // app.get('/all', function(req,res){
 //     // var data = Item.db.collection('items').find();
