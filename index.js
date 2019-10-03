@@ -27,13 +27,27 @@ app.post('/item/create', function (req, res) {
     });
     grocery.save()
         .then(success => {
-            res.send("saved")
+            res.send('save')
         })
         .catch(err => {
             res.status(400).send("unable to save")
         })
 })
 
+app.get('/item/retrieve/all', (req, res)=>{
+    Item.find({}, (err, result)=>{
+        res.render("sample.pug", {items:result})
+    })
+})
+
+app.all('/item/delete', function (req, res) {
+    Item.findByIdAndDelete(req.body.id, (err, doc) => {
+        if (!err) {
+         
+        }
+        else { console.log('Error in employee delete :' + err); }
+    });
+})
 // app.put('/item/edit', function(req, res){
 //     var items = {}
 // })

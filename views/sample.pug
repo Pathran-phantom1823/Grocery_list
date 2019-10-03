@@ -8,8 +8,9 @@ head
   script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
+  script(src="https://cdn.jsdelivr.net/npm/sweetalert2@8")
   link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
-  script(src='/scripts/home.js')
+  //- script(src='/scripts/home.js')
   style
     include style.css
   title Document
@@ -68,15 +69,16 @@ h2#header.ui.center.aligned.icon.header
     tbody
                 each item in items
                     tr
-                        td(class="item")= item.item
-                        td(class="qty")= item.qty
-                        td(class="priority")= item.priority
+                       td#id(style= 'display:none')= item.id
+                        td#item= item.item
+                        td#qty= item.qty
+                        td#priority= item.priority
                         td
                           center
                               div(class="ui buttons")
                                 button(class="ui positive button" id="editBtn") Edit
                                 div(class="or")
-                                button(class="ui negative button" id="deleteBtn") Delete
+                                button(class="ui negative button deleteBtn" type="submit") Delete
 script(src='/scripts/app.js')
 
   
