@@ -9,11 +9,13 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static(path.resolve(__dirname, '/public')));
-app.use(express.static(path.resolve(__dirname, '/views')));
+app.set('views', path.join(__dirname, 'views'));
 
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, +'views/index.html'));
+app.all('/', function (req, res) {
+    Item.find({}, (err, result)=>{
+        res.render("sample.pug", {items:result})
+    })
+    // res.sendFile(path.join(__dirname, +'views/index.html'));
 });
 
 
@@ -38,16 +40,16 @@ app.post('/create', function (req, res) {
     }
 })
 
-app.get('/all', function(req,res){
-    var data = Item.db.collection('items').find();
-        data.each((err, item)=>{
-            if(item!= null){
-              return "<p>"+item.item + "</p>"
-            }
-        })
-})
+// app.get('/all', function(req,res){
+//     // var data = Item.db.collection('items').find();
+//     //     data.each((err, item)=>{
+//     //         if(item!= null){
+//     //           return "<p>"+item.item + "</p>"
+//     //         }
+//     //     })
+// })
 
-
+app.use(express.static('public'))
 
 http.listen(port, function () {
     console.log("running on port:" + port);

@@ -9,8 +9,9 @@ head
   script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
   link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
-  link(rel='stylesheet' href='style.css')
   script(src='/home.js')
+  style
+    include style.css
   title Document
 h2#header.ui.center.aligned.icon.header
   i.shopping.cart.icon
@@ -65,7 +66,9 @@ h2#header.ui.center.aligned.icon.header
         th Quantity
         th Priority
     tbody
-        tr=item.item
-        tr= item.qty
-        tr=item.priority
-script(src='app.js')
+                each item in items
+                    tr
+                        td= item.item
+                        td= item.qty
+                        td= item.priority
+script(src='/scripts/app.js')
