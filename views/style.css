@@ -7,5 +7,20 @@
   .invalid input:required:valid {
     background: #17D654;
   }
+  body{
+    background-image: url('https://ak4.picdn.net/shutterstock/videos/16120024/thumb/1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .jumbotron{
+    width: 90%;
+    margin-left: 50px;
+    box-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
+  }
+  #exampleModal{
+    box-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
+  }
+  tr:hover {background-color:rgba(91, 224, 245,0.4);}
 
   

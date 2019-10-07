@@ -23,9 +23,7 @@ $(document).ready(function(){
         var item = $('#item').val();
         var qty = $('#qty').val();
         var priority = $('#priority').val();
-        $('tbody').append(`<tr><td>${item}</td><td>${qty}</td><td>${priority}</td><td><center><div class="ui buttons">
-        <button class="ui positive button" id="editBtn">Edit</button><div class="or"></div><button class="ui negative button deleteBtn" type="submit"
-        >Delete</button></div></center>`)
+       
         $.post({
             url: '/item/create',
             // method: "POST",
@@ -35,6 +33,9 @@ $(document).ready(function(){
             },
             success: function (data) {
                 console.log(data);
+                $('tbody').append(`<tr><td>${item}</td><td>${qty}</td><td>${priority}</td><td><center><div class="ui buttons">
+                <button class="ui positive button" id="editBtn">Edit</button><div class="or"></div><button class="ui negative button deleteBtn" type="submit"
+                >Delete</button></div></center>`)
             } 
         })
         Swal.fire({
@@ -61,11 +62,53 @@ $(document).ready(function(){
           method: 'DELETE',
           dataType: 'json',
           data: { id:id},
-          success: function () {
-    
+          success: function (data) {
+            row.remove(data);
           }
         })
     })
+
+   $("#searchBtn").on('click', function(){
+        var search = $('search').val();
+        var item = $('#item').val();
+        var qty = $('#qty').val();
+        var priority = $('#priority').val();
+        $.get({
+            url: '/item/retrieve/id',
+            Datatype:"json",
+            data:{item:item, qty: qty, priority:priority},
+            error:function(e){
+                if (e.status == 404) {
+                    $('#error').show() 
+                }
+            },
+            success: function (data) {
+               for(var i = 0; i<data.length; ++i){
+                   if(data[i].name.toLowerCase().substring(0, search.length) == search){
+                        addRow(data[i].item, data[i].qty, data[i].priority);
+                   }
+               }
+                // alert(result)
+            //     // var count = document.getElementById('counter');
+            //     // var counter = 0;
+               
+            //     $('#error').hide()
+            //     // console.log(result);
+            //     // console.log(result[0]["flag"]);
+            //     if (result.length != 0) {
+            //         for (var i = 0; i < result.length; ++i) {
+            //             if (result[i].name.toLowerCase().substring(0, search.length) == search) {
+            //                 addRow(result[i].item, result[i].qty, result[i].priority);
+            //                 // counter ++;
+            //                 var rows = document.getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+            //             }
+            //         }
+            //     }
+            }
+        })
+   })
+
+    
 
 
 })

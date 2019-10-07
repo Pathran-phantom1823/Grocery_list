@@ -12,7 +12,7 @@ db.once('open', function (callback) {
 var ItemSchema = new mongoose.Schema({
     item: {type:String, required:true, unique:true},
     qty: {type:Number, required:true},
-    priority: {type:Number, required:true, max: 3}
+    priority: {type:Number, required:true, min:1, max: 3}
 },{visionkey:"_something"})
 
 var Item = mongoose.model('Item', ItemSchema);

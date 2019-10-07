@@ -15,13 +15,18 @@ head
     include style.css
   title Document
 h2#header.ui.center.aligned.icon.header
-  i.shopping.cart.icon
-  |         Shop List
+  div#headerIcon
+    i#headeIcon.shopping.cart.icon
+      h1 Shop List
 .jumbotron
   // Button trigger modal
-  button.positive.ui.button(type='button' data-toggle='modal' data-target='#exampleModal' id="addBtn")
+  button.teal.ui.button(type='button' data-toggle='modal' data-target='#exampleModal' id="addBtn")
     i.shopping.cart.plus.icon
     |             Add Item
+  div(class="ui icon input")
+    input(type='text' placeholder='Search By ID...' id="search")
+    i(class="inverted circular search link icon" id="searchBtn")
+
   // Modal
   #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
     .modal-dialog(role='document')
@@ -60,6 +65,46 @@ h2#header.ui.center.aligned.icon.header
             button#saveBtn.positive.ui.button(type='button' value="add") Add
         .modal-footer
           button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+
+          //Edit Modal
+  #editModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          h2.ui.header
+            i.shopping.cart.icon
+            .content
+              | Shopping Form
+              .sub.header Fill Up the Form
+          button.close(type='button' data-dismiss='modal' aria-label='Close')
+            span(aria-hidden='true') &times;
+        .modal-body
+          form.needs-validation(novalidate='')
+            .form-group
+              label(for='item')
+                i.shopping.bag.icon
+                | Item Name:
+              input#item.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter Item name' required='')
+              .invalid-feedback
+                | Please enter an Item Name
+            .form-group
+              label(for='qty')
+                i.tags.icon
+                | Quantity:
+              input#qty.form-control(type='number' placeholder='Quantity' required='')
+              .invalid-feedback
+                | Please enter a Quantity
+            .form-group
+              label(for='priority')
+                i.shopping.basket.icon
+                | Priority:
+              input#priority.form-control(type='number' placeholder='Priority' required='')
+              .invalid-feedback
+                | Please enter you Priority
+            button#saveBtn.positive.ui.button(type='button' value="add") Add
+        .modal-footer
+          button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+          
   table.ui.celled.table
     thead
       tr
@@ -76,9 +121,9 @@ h2#header.ui.center.aligned.icon.header
                         td
                           center
                               div(class="ui buttons")
-                                button(class="ui positive button" id="editBtn") Edit
+                                button(class="ui positive button" value=`${item.id}` data-toggle='modal' data-target='#editModal' id="editBtn") Edit
                                 div(class="or")
-                                button(class="ui negative button deleteBtn" type="submit") Delete
+                                button(class="ui negative button deleteBtn" type="button") Delete
 script(src='/scripts/app.js')
 
   
