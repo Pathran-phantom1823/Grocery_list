@@ -51,7 +51,15 @@ app.all('/item/delete', function (req, res) {
     });
 })
 
-app.put('/item/update', (req, res)=>{
+app.all('/item/update', function (req, res) {
+    console.log(req.body.qty)
+    Item.findByIdAndUpdate(req.body.id, { $set: { item: req.body.item, qty: req.body.qty, priority: req.body.priority } }, { new: true }, (err, doc) => {
+        if (err) {
+            console.log(err)
+        }
+        console.log(doc)
+        res.end(JSON.stringify(doc))
+    })
 
 })
 

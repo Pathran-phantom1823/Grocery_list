@@ -82,68 +82,47 @@ $(document).ready(function(){
                 if(data != search){
                     row.remove(data);
                 }
-                // alert(data)
-                // $('tbody').append(`<tr><td>${data[0].item}</td><td>${qty}</td><td>${priority}</td><td><center><div class="ui buttons">
-                // <button class="ui positive button" id="editBtn">Edit</button><div class="or"></div><button class="ui negative button deleteBtn" type="submit"
-                // >Delete</button></div></center>`)
-                // alert(result)
-            //     // var count = document.getElementById('counter');
-            //     // var counter = 0;
                
-            //     $('#error').hide()
-            //     // console.log(result);
-            //     // console.log(result[0]["flag"]);
-            //     if (result.length != 0) {
-            //         for (var i = 0; i < result.length; ++i) {
-            //             if (result[i].name.toLowerCase().substring(0, search.length) == search) {
-            //                 addRow(result[i].item, result[i].qty, result[i].priority);
-            //                 // counter ++;
-            //                 var rows = document.getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
-            //             }
-            //         }
-            //     }
             }
         })
    })
 
+$("#editBtn").click(function () {
+    var row = $(this).closest("tr");
+    var id = row.find("#id").text();
+    var item = row.find('#item').text();
+    var qty = row.find('#qty').text();
+    var priority = row.find('#priority').text();
+    console.log(item)
+    $('#item2').val(item);
+    $('#qty2').val(qty);
+    $('#priority2').val(priority);
+    $('#updateBtn').on('click', function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: '/item/update',
+        method: "PUT",
+        data: { id: id, item: $('#item2').val(), qty: $('#qty2').val(), priority: $('#priority2').val() },
+        error: (e) => {
+          console.log(e)
+        },
+        success: function (data) {
+          var data= JSON.parse(data);
+          console.log(data.item)
+          row.find('#item').text(data.item);
+          row.find('#qty').text(data.qty);
+          row.find('#priority').text(data.priority);
+          $('#Modal').modal('toggle')
+        }
+      })
+    })
+  })
     
 
 
 })
 
 
-//     $("#addBtn").on('click', ()=>{
-//         $('#add').val('add');
-//         $('form')[0].reset();
-//     })
 
-//     $("#editBtn").on('click',()=>{
-//         var item_id = $(this).attr("id");
-//         $.ajax({
-//             url: "/item/edit",
-//             method: "PUT",
-//             data:{item_id: item_id},
-//             dataType: "json",
-//             success: function(data){
-//                 $('#item').val(data.item);
-//                 $('#qty').val(data.qty);
-//                 $('#priority').val(data.priority);
-//             }
-//         })
-//     })
-// })
-
-//     $("#updateBtn").on('click', function () {
-//         $.ajax({
-//             url: '/create',
-//             method: 'POST',
-//             dataType: 'json',
-//             data: {item:$('#item'), qty: $('#qty'), priority:$('#priority')},
-//             success: function () {
-
-//             }
-//         })
-//     })
-// })
 
 
