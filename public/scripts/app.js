@@ -32,7 +32,7 @@ $(document).ready(function(){
                 
             },
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 $('tbody').append(`<tr><td>${item}</td><td>${qty}</td><td>${priority}</td><td><center><div class="ui buttons">
                 <button class="ui positive button" id="editBtn">Edit</button><div class="or"></div><button class="ui negative button deleteBtn" type="submit"
                 >Delete</button></div></center>`)
@@ -69,25 +69,23 @@ $(document).ready(function(){
     })
 
    $("#searchBtn").on('click', function(){
-        var search = $('search').val();
-        var item = $('#item').val();
-        var qty = $('#qty').val();
-        var priority = $('#priority').val();
-        $.get({
-            url: '/item/retrieve/id',
+       console.log('click search')
+       var row = $(this).closest('tr');
+        var search = $('#search').val();
+        $.ajax({
+            url: '/item/retrieve/item',
             Datatype:"json",
-            data:{item:item, qty: qty, priority:priority},
-            error:function(e){
-                if (e.status == 404) {
-                    $('#error').show() 
-                }
-            },
+            method:"GET",
+            data:{search:search},
             success: function (data) {
-               for(var i = 0; i<data.length; ++i){
-                   if(data[i].name.toLowerCase().substring(0, search.length) == search){
-                        addRow(data[i].item, data[i].qty, data[i].priority);
-                   }
-               }
+                console.log(data)
+                if(data != search){
+                    row.remove(data);
+                }
+                // alert(data)
+                // $('tbody').append(`<tr><td>${data[0].item}</td><td>${qty}</td><td>${priority}</td><td><center><div class="ui buttons">
+                // <button class="ui positive button" id="editBtn">Edit</button><div class="or"></div><button class="ui negative button deleteBtn" type="submit"
+                // >Delete</button></div></center>`)
                 // alert(result)
             //     // var count = document.getElementById('counter');
             //     // var counter = 0;
