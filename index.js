@@ -24,15 +24,17 @@ app.post('/item/create', function (req, res) {
         qty: req.body.qty,
         priority: req.body.priority
     });
-    if(Item.find({item:{$exists:false}})){
-    grocery.save()
-        .then(success => {
-            res.send('save '+ req.body.id);
-        })
-        .catch(err => {
-            res.status(400).send("unable to save")
-        })
-    }
+    grocery.save((err, doc)=>{
+        if(!err){
+            res.send(doc);
+        }
+        else{
+            res.status(400).end(JSON.stringify(err))
+        }
+    
+
+    })
+       
        
 })
 
@@ -47,7 +49,7 @@ app.all('/item/delete', function (req, res) {
         if (!err) {
             
         }
-        else { console.log('Error in employee delete :' + err); }
+        else { console.log('Error in Item delete :' + err); }
     });
 })
 
@@ -63,31 +65,16 @@ app.all('/item/update', function (req, res) {
 
 })
 
-// app.get('/item/retrieve/item',(req, res)=>{
-//     res.send(req.body.item);
-// })
-
-app.get('/item/retrieve/item',(req, res)=>{
-    Item.find({
-        "$text":{
-            "$search": req.body.item
+app.put('/item/retrieve/:id', (req, res)=>{
+    console.log(req.params.id)
+    Item.findById(req.params.id, (err, doc) => {
+        if (!err) {
+            res.end(JSON.stringify(doc))
+            console.log(JSON.stringify(doc))
         }
-    })
-    .then(item => console.log(item))
-    
+        else { console.log('Error in getting item :' + err); }
+    });
 })
-// app.put('/item/edit', function(req, res){
-//     var items = {}
-// })
-
-// app.get('/all', function(req,res){
-//     // var data = Item.db.collection('items').find();
-//     //     data.each((err, item)=>{
-//     //         if(item!= null){
-//     //           return "<p>"+item.item + "</p>"
-//     //         }
-//     //     })
-// })
 app.use(express.static('public'))
 
 http.listen(port, function () {

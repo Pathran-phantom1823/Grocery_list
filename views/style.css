@@ -23,4 +23,14 @@
   }
   tr:hover {background-color:rgba(91, 224, 245,0.4);}
 
+  #error{
+    color: red;
+    font-weight: 500;
+  }
+
+  #success{
+    color: #17D654;
+    font-weight: 500;
+  }
+
   

@@ -59,9 +59,13 @@ h2#header.ui.center.aligned.icon.header
               label(for='priority')
                 i.shopping.basket.icon
                 | Priority:
-              input#priority.form-control(type='number' placeholder='Priority' required='')
+              select#priority.form-control(type='number' placeholder='Priority' required='')
+                option(value="1") 1
+                option(value="2") 2
+                option(value="3") 3
               .invalid-feedback
                 | Please enter you Priority
+              span#error
             button#saveBtn.positive.ui.button(type='button' value="add") Add
         .modal-footer
           button.btn.btn-secondary(type='button' data-dismiss='modal') Close
@@ -98,7 +102,10 @@ h2#header.ui.center.aligned.icon.header
               label(for='priority')
                 i.shopping.basket.icon
                 | Priority:
-              input#priority2.form-control(type='number' placeholder='Priority' required='')
+              select#priority2.form-control(type='number' placeholder='Priority' required='')
+                  option(value="1") 1
+                  option(value="2") 2
+                  option(value="3") 3
               .invalid-feedback
                 | Please enter you Priority
             button#updateBtn.positive.ui.button(type='button' value="add") Add
@@ -121,7 +128,7 @@ h2#header.ui.center.aligned.icon.header
                         td
                           center
                               div(class="ui buttons")
-                                button(class="ui positive button" value=`${item.id}` data-toggle='modal' data-target='#editModal' id="editBtn") Edit
+                                button(class="ui positive button editBtn" value=`${item.id}` data-toggle='modal' data-target='#editModal' ) Edit
                                 div(class="or")
                                 button(class="ui negative button deleteBtn" type="button") Delete
 script(src='/scripts/app.js')
