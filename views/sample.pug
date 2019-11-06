@@ -14,17 +14,16 @@ head
   style
     include style.css
   title Document
-h2#header.ui.center.aligned.icon.header
-  div#headerIcon
-    i#headeIcon.shopping.cart.icon
-      h1 Shop List
+h2.ui.center.aligned.icon.header
+  i.circular.users.icon
+  |   Add New Employee
 .jumbotron
   // Button trigger modal
   button.teal.ui.button(type='button' data-toggle='modal' data-target='#exampleModal' id="addBtn")
     i.shopping.cart.plus.icon
-    |             Add Item
+    |             Add Employee
   div(class="ui icon input")
-    input(type='text' placeholder='Search By ID...' id="search")
+    input(type='text' placeholder='Search Employee...' id="search")
     i(class="inverted circular search link icon" id="searchBtn")
 
   // Modal
@@ -33,9 +32,9 @@ h2#header.ui.center.aligned.icon.header
       .modal-content
         .modal-header
           h2.ui.header
-            i.shopping.cart.icon
+            i.shopping.user.icon
             .content
-              | Shopping Form
+              | Employee Form
               .sub.header Fill Up the Form
           button.close(type='button' data-dismiss='modal' aria-label='Close')
             span(aria-hidden='true') &times;
@@ -44,28 +43,31 @@ h2#header.ui.center.aligned.icon.header
             .form-group
               label(for='item')
                 i.shopping.bag.icon
-                | Item Name:
-              input#item.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter Item name' required='')
+                | Name:
+              input#employee.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter Item name' required='')
               .invalid-feedback
-                | Please enter an Item Name
+                | Please enter an Name
             .form-group
               label(for='qty')
                 i.tags.icon
-                | Quantity:
-              input#qty.form-control(type='number' placeholder='Quantity' required='')
+                | Address:
+              input#address.form-control(type='text' placeholder='Address' required='')
               .invalid-feedback
-                | Please enter a Quantity
+                | Please enter your Adress
             .form-group
               label(for='priority')
                 i.shopping.basket.icon
-                | Priority:
-              select#priority.form-control(type='number' placeholder='Priority' required='')
-                option(value="1") 1
-                option(value="2") 2
-                option(value="3") 3
+                | Email:
+              input#email.form-control(type='email' placeholder='Email' required='')
               .invalid-feedback
-                | Please enter you Priority
-              span#error
+                | Please enter your Email
+            .form-group
+              label(for='description')
+                i.shopping.basket.icon
+                | Description:
+                .field
+                  textarea#description(name="desc", cols="70", rows="10" placeholder='About your self....')
+                span#error
             button#saveBtn.positive.ui.button(type='button' value="add") Add
         .modal-footer
           button.btn.btn-secondary(type='button' data-dismiss='modal') Close
@@ -76,9 +78,9 @@ h2#header.ui.center.aligned.icon.header
       .modal-content
         .modal-header
           h2.ui.header
-            i.shopping.cart.icon
+            i.shopping.user.icon
             .content
-              | Shopping Form
+              | Employee Form
               .sub.header Fill Up the Form
           button.close(type='button' data-dismiss='modal' aria-label='Close')
             span(aria-hidden='true') &times;
@@ -87,48 +89,51 @@ h2#header.ui.center.aligned.icon.header
             .form-group
               label(for='item')
                 i.shopping.bag.icon
-                | Item Name:
-              input#item2.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter Item name' required='')
+                | Name:
+              input#employee2.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter Item name' required='')
               .invalid-feedback
-                | Please enter an Item Name
+                | Please enter your Name
             .form-group
               label(for='qty')
                 i.tags.icon
-                | Quantity:
-              input#qty2.form-control(type='number' placeholder='Quantity' required='')
+                | Address:
+              input#address2.form-control(type='text' placeholder='Address' required='')
               .invalid-feedback
-                | Please enter a Quantity
+                | Please enter your Address:
             .form-group
               label(for='priority')
                 i.shopping.basket.icon
-                | Priority:
-              select#priority2.form-control(type='number' placeholder='Priority' required='')
-                  option(value="1") 1
-                  option(value="2") 2
-                  option(value="3") 3
+                | Email:
+              input#email2.form-control(type='email' placeholder='Email' required='')
               .invalid-feedback
-                | Please enter you Priority
-            button#updateBtn.positive.ui.button(type='button' value="add") Add
+                | Please enter your Email
+            .form-group
+              label(for='description')
+                i.shopping.basket.icon
+                | Description:
+                .field
+                  textarea#description2(name="desc", cols="70", rows="10" placeholder='About your self....')
+            button#updateBtn.positive.ui.button(type='button' value="add") Update
         .modal-footer
           button.btn.btn-secondary(type='button' data-dismiss='modal') Close
           
-  table.ui.celled.table
+  table#mytable.ui.celled.table
     thead
       tr
-        th Item Name
-        th Quantity
-        th Priority
+        th Name
+        th Address
+        th Email
     tbody
-                each item in items
+                each employee in employees
                     tr
-                       td#id(style= 'display:none')= item.id
-                        td#item= item.item
-                        td#qty= item.qty
-                        td#priority= item.priority
+                       td#id(style= 'display:none')= employee.id
+                        td#employee= employee.employee
+                        td#empoyee= employee.address
+                        td#employee= employee.email
                         td
                           center
                               div(class="ui buttons")
-                                button(class="ui positive button editBtn" value=`${item.id}` data-toggle='modal' data-target='#editModal' ) Edit
+                                button(class="ui positive button editBtn" value=`${employee.id}` data-toggle='modal' data-target='#editModal' ) Edit
                                 div(class="or")
                                 button(class="ui negative button deleteBtn" type="button") Delete
 script(src='/scripts/app.js')

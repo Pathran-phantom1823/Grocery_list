@@ -1,10 +1,11 @@
 
+
 $(document).ready(function () {
     $.ajax({
-        url: '/item/retrieve/all',
+        url: '/employee/retrieve/all',
         method: 'get',
         success: function (data) {
-            console.log(data);
+            // console.log(data);
         }
     })
 
@@ -20,29 +21,34 @@ $(document).ready(function () {
             console.log("click")
             var row = $(this).closest("tr");
             var id = row.find("#id").text();
-            var item = $('#item').val();
-            var qty = $('#qty').val();
-            var priority = $('#priority').val();
+            var employee = $('#employee').val();
+            var address = $('#address').val();
+            var email = $('#email').val();
+            var description = $('#description').val()
 
             $.post({
-                url: '/item/create',
+                url: '/employee/create',
                 // method: "POST",
-                data: { item: item, qty: qty, priority: priority },
+                data: { employee: employee, address: address, email:email,  description:description },
                 error: (err) => {
                     var error = JSON.stringify(err);
                     console.log(error)
                     $('#error').text("❗" + error).css({ 'color': 'red', 'font-weight': '500' });
                 },
                 success: function (data) {
+                    location.reload()
                     // console.log(data);
                     $('#error').text(" ✅ Item Added Successfully!!").css({ 'color': '#17D654', 'font-weight': '500' })
 
-                    $('tbody').append(`<tr><td>${item}</td><td>${qty}</td><td>${priority}</td><td><center><div class="ui buttons">
+                    $('tbody').append(`<tr><td>${employee}</td><td>${address}</td><td>${email}</td><td><center><div class="ui buttons">
                 <button class="ui positive button editBtn">Edit</button><div class="or"></div><button class="ui negative button deleteBtn" type="submit"
                 >Delete</button></div></center>`)
+
+                $('#exampleModal').modal('toggle')
                 }
             })
             $("input").val("");
+            $('textarea').val("")
         } else {
             Swal.fire({
                 type: 'error',
@@ -57,17 +63,45 @@ $(document).ready(function () {
         var id = row.find("#id").text();
         row.remove();
         $.ajax({
-            url: '/item/delete',
+            url: '/employee/delete',
             method: 'DELETE',
             dataType: 'json',
             data: { id: id },
             success: function (data) {
+                location.reload()
                 row.remove(data);
             }
         })
     })
 
+    $('#searchBtn').on("click",()=>{
+         var mysearchinput = $('#search').val()
+        $.ajax({
+            method: "GET",
+            url: "/employee/search",
+            data: { search: mysearchinput },
+            success:function (data) {
+                console.log((data.result[0].employee))
+                $('tbody').empty()
+                $('tbody').append(`<tr><td>${data.result[0].employee}</td><td>${data.result[0].address}</td><td>${data.result[0].email}</td><td><center><div class="ui buttons">
+                <button class="ui positive button editBtn">Edit</button><div class="or"></div><button class="ui negative button deleteBtn" type="submit"
+                >Delete</button></div></center>`)              
+            }
+        })
 
+        // .fail(function(err) {
+        //     console.log(err);
+        // })
+        // .done(function(data) {
+        //     var datas = JSON.stringify(data.employee)
+        //     console.log(data);
+        //     $('tbody').append(`<tr><td>${data.result.employee}</td><td>${address}</td><td>${email}</td><td><center><div class="ui buttons">
+        //     <button class="ui positive button editBtn">Edit</button><div class="or"></div><button class="ui negative button deleteBtn" type="submit"
+        //     >Delete</button></div></center>`)
+        // });
+    
+    })
+   
 
     var row;
     var id;
@@ -76,16 +110,17 @@ $(document).ready(function () {
         row = $(this).closest("tr");
         id = row.find("#id").text();
         $.ajax({
-            url: '/item/retrieve/' + id,
+            url: '/employee/retrieve/' + id,
             method: "PUT",
             error: (e) => {
                 console.log(e)
             }, success: function (data) {
                 var data = JSON.parse(data);
                 console.log(data)
-                $('#item2').val(data.item);
-                $('#qty2').val(data.qty);
-                $('#priority2').val(data.priority);
+                $('#employee2').val(data.employee);
+                $('#address2').val(data.address);
+                $('#email2').val(data.email);
+                $('#description2').val(data.description)
             }
         })
     })
@@ -93,18 +128,18 @@ $(document).ready(function () {
     $('#updateBtn').click(function (e) {
         e.preventDefault();
         $.ajax({
-          url: '/item/update',
+          url: '/employee/update',
           method: "PUT",
-          data: { id: id, item: $('#item2').val(), qty: $('#qty2').val(), priority: $('#priority2').val() },
+          data: { id: id, employee: $('#employee2').val(), address: $('#address2').val(), email: $('#email2').val(), description:$('#description2').val()},
           error: (e) => {
             $('#error').text("❗Invalid Inputs").css({ 'color': 'red', 'font-weight': '500' });
           },
           success: function (data) {
             var data = JSON.parse(data);
             console.log(data.item)
-            row.find('#item').text(data.item);
-            row.find('#qty').text(data.qty);
-            row.find('#priority').text(data.priority);
+            row.find('#employee').text(data.employee);
+            row.find('#address').text(data.address);
+            row.find('#email').text(data.email);
             Swal.fire({
               type: 'success',
               title: 'Done',
@@ -112,6 +147,7 @@ $(document).ready(function () {
               showConfirmButton: false,
               timer: 1500
             })
+            location.reload();
             $('#editModal').modal('toggle')
           }
         })

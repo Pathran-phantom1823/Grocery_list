@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true)
-mongoose.connect('mongodb://127.0.0.1/groceries', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://127.0.0.1/employees', { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, "connection error"));
@@ -10,22 +10,28 @@ db.once('open', function (callback) {
 })
 
 var ItemSchema = new mongoose.Schema({
-    item: {
+    employee: {
         type: String,
-        required: [true, "Please Fille the Item"],
+        required:true
+        // required: [true, "Please Fill the Name"],
+    },
+    address: {
+        type: String,
+        required:true
+        // required: [true, "Put Address"]
+    },
+    email: {
+        type: String,
+        required:true,
+        // required: [true, "Fill up email"],
         unique: true
     },
-    qty: {
-        type: Number,
-        required: [true, "Put quantity"]
+    description: {
+        type: String,
+        required:true
+        // required: [true, "Fill up description"],
     },
-    priority: {
-        type: Number,
-        required: [true, "Fill up priority"],
-        min: 1,
-        max: 3
-    }
 }, { visionkey: "_something" })
 
-var Item = mongoose.model('Item', ItemSchema);
-module.exports = Item;
+var Employee = mongoose.model('Employee', ItemSchema);
+module.exports = Employee;
