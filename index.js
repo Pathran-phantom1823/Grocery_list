@@ -79,8 +79,7 @@ app.put('/employee/retrieve/:id', (req, res)=>{
 
 app.get('/employee/search', function(req, res) {
     Employee.find({ employee: { $regex : ".*"+ req.query.search +".*", $options:'i' } }, function(err, result){
-
-        return res.status(200).json({result: result})
+        return res.status(200).json({result})
    
      });
  });

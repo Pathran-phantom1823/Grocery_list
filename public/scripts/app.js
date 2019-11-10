@@ -9,7 +9,8 @@ $(document).ready(function () {
         }
     })
 
-    $("#saveBtn").on('click', function () {
+    $("#saveBtn").on('click', function (e) {
+        e.preventDefault()
         var complete = false;
         $('form input').each(function () {
             if ($(this).val() == "") {
@@ -37,12 +38,8 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     location.reload()
-                    // console.log(data);
                     $('#error').text(" ✅ Item Added Successfully!!").css({ 'color': '#17D654', 'font-weight': '500' })
-
-                    $('tbody').append(`<tr><td>${employee}</td><td>${address}</td><td>${email}</td><td><center><div class="ui buttons">
-                <button class="ui positive button editBtn">Edit</button><div class="or"></div><button class="ui negative button deleteBtn" type="submit"
-                >Delete</button></div></center>`)
+                    $('tbody').html(data)
 
                 $('#exampleModal').modal('toggle')
                 }
@@ -75,30 +72,21 @@ $(document).ready(function () {
     })
 
     $('#searchBtn').on("click",()=>{
+        $('#tbody1').hide()
          var mysearchinput = $('#search').val()
         $.ajax({
             method: "GET",
             url: "/employee/search",
             data: { search: mysearchinput },
             success:function (data) {
-                console.log((data.result[0].employee))
-                $('tbody').empty()
-                $('tbody').append(`<tr><td>${data.result[0].employee}</td><td>${data.result[0].address}</td><td>${data.result[0].email}</td><td><center><div class="ui buttons">
-                <button class="ui positive button editBtn">Edit</button><div class="or"></div><button class="ui negative button deleteBtn" type="submit"
-                >Delete</button></div></center>`)              
+                console.log((data.result[0]))
+                var datas = data.result[0]
+                $('tbody').html(datas)
+                // $('tbody').html(`<tr><td>${data.result[0].employee}</td><td>${data.result[0].address}</td><td>${data.result[0].email}</td><td><center><div class="ui buttons">
+                //  <button class="ui positive button editBtn2">Edit</button><div class="or"></div><button class="ui negative button deleteBtn2" type="submit"
+                // >Delete</button></div></center>`)           
             }
         })
-
-        // .fail(function(err) {
-        //     console.log(err);
-        // })
-        // .done(function(data) {
-        //     var datas = JSON.stringify(data.employee)
-        //     console.log(data);
-        //     $('tbody').append(`<tr><td>${data.result.employee}</td><td>${address}</td><td>${email}</td><td><center><div class="ui buttons">
-        //     <button class="ui positive button editBtn">Edit</button><div class="or"></div><button class="ui negative button deleteBtn" type="submit"
-        //     >Delete</button></div></center>`)
-        // });
     
     })
    
@@ -106,7 +94,7 @@ $(document).ready(function () {
     var row;
     var id;
 
-    $(".editBtn").click(function () {
+    $(".editBtn").on('click',function () {
         row = $(this).closest("tr");
         id = row.find("#id").text();
         $.ajax({
@@ -125,7 +113,9 @@ $(document).ready(function () {
         })
     })
 
-    $('#updateBtn').click(function (e) {
+    
+
+    $('#updateBtn').on('click',function (e) {
         e.preventDefault();
         $.ajax({
           url: '/employee/update',
