@@ -190,14 +190,7 @@ $(document).ready(function () {
                 success: function(data) {
                     window.location = '/employee/retrieve/all'
                     console.log(data);
-                    $.ajax({
-                        url:'/user',
-                        method:'get',
-                        success:function(data) {
-                            console.log(data)
-                            
-                        }
-                    })
+                    
                 }
             })
         })

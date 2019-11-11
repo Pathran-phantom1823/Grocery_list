@@ -35,11 +35,11 @@ app.all('/employee/create', function (req, res) {
 
     })    
 })
-app.get('/user', (req, res)=>{
-    Admin.find({ username: { $regex : ".*"+ req.query.username +".*", $options:'i' } }, function(err, result){
-        return res.status(200).json({result})
-    })
-})
+// app.get('/user', (req, res)=>{
+//     Admin.find({ username: { $regex : ".*"+ req.query.username +".*", $options:'i' } }, function(err, result){
+//         return res.status(200).json({result})
+//     })
+// })
 
 
 app.all('/login',(req, res)=>{
