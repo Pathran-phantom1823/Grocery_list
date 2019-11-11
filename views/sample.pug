@@ -20,11 +20,16 @@ h2.ui.center.aligned.icon.header
 .jumbotron
   // Button trigger modal
   button.teal.ui.button(type='button' data-toggle='modal' data-target='#exampleModal' id="addBtn")
-    i.shopping.cart.plus.icon
+    i.user.plus.icon
     |             Add Employee
   div(class="ui icon input")
     input(type='text' placeholder='Search Employee...' id="search")
     i(class="inverted circular search link icon" id="searchBtn")
+  div(class="ui icon input float-right")
+      span#span= data.username
+       button.primary.ui.button(type='button' id="logoutBtn")
+          i.home.icon
+          |             Logout
 
   // Modal
   #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
@@ -32,7 +37,7 @@ h2.ui.center.aligned.icon.header
       .modal-content
         .modal-header
           h2.ui.header
-            i.shopping.user.icon
+            i.user.plus.icon
             .content
               | Employee Form
               .sub.header Fill Up the Form
@@ -42,28 +47,28 @@ h2.ui.center.aligned.icon.header
           form#form1.needs-validation(novalidate='')
             .form-group
               label(for='item')
-                i.shopping.bag.icon
+                i.user.icon
                 | Name:
               input#employee.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter Item name' required='')
               .invalid-feedback
                 | Please enter an Name
             .form-group
               label(for='qty')
-                i.tags.icon
+                i.map.marker.alternate.icon
                 | Address:
               input#address.form-control(type='text' placeholder='Address' required='')
               .invalid-feedback
                 | Please enter your Adress
             .form-group
               label(for='priority')
-                i.shopping.basket.icon
+                i.envelope.icon
                 | Email:
               input#email.form-control(type='email' placeholder='Email' required='')
               .invalid-feedback
                 | Please enter your Email
             .form-group
               label(for='description')
-                i.shopping.basket.icon
+                i.eye.icon
                 | Description:
                 .field
                   textarea#description(name="desc", cols="70", rows="10" placeholder='About your self....')
@@ -78,7 +83,7 @@ h2.ui.center.aligned.icon.header
       .modal-content
         .modal-header
           h2.ui.header
-            i.shopping.user.icon
+            i.user.plus.icon
             .content
               | Employee Form
               .sub.header Fill Up the Form
@@ -136,19 +141,6 @@ h2.ui.center.aligned.icon.header
                                 button(class="ui positive button editBtn" value=`${employee.id}` data-toggle='modal' data-target='#editModal' ) Edit
                                 div(class="or")
                                 button(class="ui negative button deleteBtn" type="button") Delete
-    //- tbody#tbody2(style="display:none")
-    //-             each employee in employees
-    //-                 tr
-    //-                    td#id(style= 'display:none')= employee.id
-    //-                     td#employee= employee[0].employee
-    //-                     td#empoyee= employees[0].address
-    //-                     td#employee= employees[0].email
-    //-                     td
-    //-                       center
-    //-                           div(class="ui buttons")
-    //-                             button(class="ui positive button editBtn" value=`${employees[0].id}` data-toggle='modal' data-target='#editModal' ) Edit
-    //-                             div(class="or")
-    //-                             button(class="ui negative button deleteBtn" type="button") Delete
 script(src='/scripts/app.js')
 
   

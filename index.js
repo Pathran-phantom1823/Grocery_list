@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser')
 var http = require('http').Server(app);
 var Employee = require('./public/models/item')
+var Admin = require('./public/models/user')
 const path = require('path');
 var port = process.env.PORT || 3000;
 
@@ -12,9 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use('views', path.join(__dirname, 'views'));
 
 app.all('/', function (req, res) {
-    Employee.find({}, (err, result)=>{
-        res.render("sample.pug", {employees:result})
-    })
+        res.render("login.pug")
 });
 
 
@@ -34,9 +33,28 @@ app.all('/employee/create', function (req, res) {
         }
     
 
+    })    
+})
+app.get('/user', (req, res)=>{
+    Admin.find({ username: { $regex : ".*"+ req.query.username +".*", $options:'i' } }, function(err, result){
+        return res.status(200).json({result})
     })
-       
-       
+})
+
+
+app.all('/login',(req, res)=>{
+    var admin = new Admin({
+        username: req.body.username,
+        password: req.body.password
+    });
+    admin.save((err, doc)=>{
+        if(!err){
+            res.send(doc)
+            console.log(doc)
+        }else{
+            res.status(400).end(JSON.stringify(err))
+        }
+    })
 })
 
 app.get('/employee/retrieve/all', (req, res)=>{

@@ -1,13 +1,14 @@
 
 
 $(document).ready(function () {
-    $.ajax({
-        url: '/employee/retrieve/all',
-        method: 'get',
-        success: function (data) {
-            // console.log(data);
-        }
-    })
+    // $.ajax({
+    //     url: '/employee/retrieve/all',
+    //     method: 'get',
+    //     success: function (data) {
+    //         $('tbody').html(data)
+    //     }
+    // })
+    
 
     $("#saveBtn").on('click', function (e) {
         e.preventDefault()
@@ -71,6 +72,8 @@ $(document).ready(function () {
         })
     })
 
+    
+
     $('#searchBtn').on("click",()=>{
          var mysearchinput = $('#search').val()
          function emptyTable() {
@@ -103,7 +106,7 @@ $(document).ready(function () {
                 // $('tbody').html(data)
                 // $('#tbody1').hide()
                 $('tbody').append(`<tr><td>${data.result[0].employee}</td><td>${data.result[0].address}</td><td>${data.result[0].email}</td><td><center><div class="ui buttons">
-                 <button class="ui positive button value = "${data.result[0]._id}" id = "editBtn2">Edit</button><div class="or"></div><button class="ui negative button deleteBtn2" type="submit"
+                 <button class="ui positive button value = "${data.result[0]._id}" id = "editBtn2 ">Edit</button><div class="or"></div><button class="ui negative button deleteBtn2" type="submit"
                 >Delete</button></div></center>`)     
                 
             }
@@ -136,32 +139,7 @@ $(document).ready(function () {
         })
     })
 
-    var row2;
-    var id2;
 
-    $("editBtn2").on('click',function () {
-        console.log("click");
-
-        row2 = $(this).closest("tr");
-        id2 = row2.find("#id").text();
-        $('#editModal').mdal()
-        $.ajax({
-            url: '/employee/retrieve/' + id2,
-            method: "PUT",
-            error: (e) => {
-                console.log(e)
-            }, success: function (data) {
-                var data = JSON.parse(data);
-                console.log(data)
-                $('#employee2').val(data.employee);
-                $('#address2').val(data.address);
-                $('#email2').val(data.email);
-                $('#description2').val(data.description)
-            }
-        })
-    })
-
-    
 
     $('#updateBtn').on('click',function (e) {
         e.preventDefault();
@@ -191,7 +169,39 @@ $(document).ready(function () {
         })
       })
     
-
+      $(document).ready(function() {
+        $("#logoutBtn").on('click', function() {
+            $.ajax({
+                url: '/',
+                method: 'POST',
+                success: function (data) {
+                    window.location = "/"
+                    
+                }
+            })
+        });
+    
+        $('#login').on('click', ()=>{
+            var username = $('#username').val()
+            var password = $('#password').val()
+            $.post({
+                url:'/login',
+                data:{username:username, password:password},
+                success: function(data) {
+                    window.location = '/employee/retrieve/all'
+                    console.log(data);
+                    $.ajax({
+                        url:'/user',
+                        method:'get',
+                        success:function(data) {
+                            console.log(data)
+                            
+                        }
+                    })
+                }
+            })
+        })
+    })
 
 
 

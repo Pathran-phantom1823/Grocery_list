@@ -1,100 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="/home.js"></script>
-    <title>Document</title>
-</head>
-
-<body>
-    <h2 class="ui center aligned icon header" id="header">
-        <i class="shopping cart icon"></i>
-        Shop List
-    </h2>
-
-    <div class="jumbotron">
-        <!-- Button trigger modal -->
-        <button type="button" class="positive ui button" data-toggle="modal" data-target="#exampleModal"><i
-                class="shopping cart plus icon"></i>
-            Add Item
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="ui header">
-                            <i class="shopping cart icon"></i>
-                            <div class="content">
-                                Shopping Form
-                                <div class="sub header">Fill Up the Form</div>
-                            </div>
-                        </h2>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="needs-validation" novalidate>
-                            <div class="form-group">
-                                <label for="item"><i class="shopping bag icon"></i>Item Name: </label>
-                                <input type="text" class="form-control" id="item" aria-describedby="emailHelp"
-                                    placeholder="Enter Item name" required>
-                                <div class="invalid-feedback">
-                                    Please enter an Item Name
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="qty"><i class="tags icon"></i>Quantity: </label>
-                                <input type="number" class="form-control" id="qty" placeholder="Quantity" required>
-                                <div class="invalid-feedback">
-                                    Please enter a Quantity
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="priority"><i class="shopping basket icon"></i>Priority: </label>
-                                <input type="number" class="form-control" id="priority" placeholder="Priority" required>
-                                <div class="invalid-feedback">
-                                    Please enter you Priority
-                                </div>
-                            </div>
-                            <button type="submit" class="positive ui button" id="saveBtn">Add</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <table class="ui celled table">
-            <thead>
-                <tr>
-                    <th>Item Name</th>
-                    <th>Quantity</th>
-                    <th>Priority</th>
-                </tr>
-            </thead>
-            <tbody style="display: none;">
-            </tbody>
-        </table>
-    </div>
-
-</body>
-<script src="app.js">
-    
-</script>
-
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login Form Tutorial</title>
+		<style>
+		.login-form {
+			width: 300px;
+			margin: 0 auto;
+			font-family: Tahoma, Geneva, sans-serif;
+		}
+		.login-form h1 {
+			text-align: center;
+			color: #4d4d4d;
+			font-size: 24px;
+			padding: 20px 0 20px 0;
+		}
+		.login-form input[type="password"],
+		.login-form input[type="text"] {
+			width: 100%;
+			padding: 15px;
+			border: 1px solid #dddddd;
+			margin-bottom: 15px;
+			box-sizing:border-box;
+		}
+		.login-form input[type="submit"] {
+			width: 100%;
+			padding: 15px;
+			background-color: #535b63;
+			border: 0;
+			box-sizing: border-box;
+			cursor: pointer;
+			font-weight: bold;
+			color: #ffffff;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="login-form">
+			<h1>Login Form</h1>
+			<form action="auth" method="POST">
+				<input type="text" name="username" placeholder="Username" required>
+				<input type="password" name="password" placeholder="Password" required>
+				<input type="submit">
+			</form>
+		</div>
+	</body>
 </html>
