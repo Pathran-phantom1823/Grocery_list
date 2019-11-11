@@ -72,19 +72,40 @@ $(document).ready(function () {
     })
 
     $('#searchBtn').on("click",()=>{
-        $('#tbody1').hide()
          var mysearchinput = $('#search').val()
+         function emptyTable() {
+            $('tbody').empty(); 
+        }
+        $(document).ajaxStart(function(){
+            $('#searchBtn').attr("disabled",true);
+            $('#searchBtn').css('background-color','red');
+            emptyTable();
+        });
+        $(document).ajaxStop(function(){
+            $('#searchBtn').attr("disabled",false);
+            $('#searchBtn').css('background-color','green');
+            $('#spinner').hide();
+            // emptyTable();
+        })
+        emptyTable()
         $.ajax({
             method: "GET",
             url: "/employee/search",
             data: { search: mysearchinput },
+            Datatype:"json",
+            error:function(e){
+                if (e.status == 404) {
+                    alert("error") 
+                }
+            },
             success:function (data) {
-                console.log((data.result[0]))
-                var datas = data.result[0]
-                $('tbody').html(datas)
-                // $('tbody').html(`<tr><td>${data.result[0].employee}</td><td>${data.result[0].address}</td><td>${data.result[0].email}</td><td><center><div class="ui buttons">
-                //  <button class="ui positive button editBtn2">Edit</button><div class="or"></div><button class="ui negative button deleteBtn2" type="submit"
-                // >Delete</button></div></center>`)           
+                console.log((JSON.stringify(data.result)))
+                // $('tbody').html(data)
+                // $('#tbody1').hide()
+                $('tbody').append(`<tr><td>${data.result[0].employee}</td><td>${data.result[0].address}</td><td>${data.result[0].email}</td><td><center><div class="ui buttons">
+                 <button class="ui positive button value = "${data.result[0]._id}" id = "editBtn2">Edit</button><div class="or"></div><button class="ui negative button deleteBtn2" type="submit"
+                >Delete</button></div></center>`)     
+                
             }
         })
     
@@ -95,10 +116,37 @@ $(document).ready(function () {
     var id;
 
     $(".editBtn").on('click',function () {
+        console.log("click");
+
         row = $(this).closest("tr");
         id = row.find("#id").text();
         $.ajax({
             url: '/employee/retrieve/' + id,
+            method: "PUT",
+            error: (e) => {
+                console.log(e)
+            }, success: function (data) {
+                var data = JSON.parse(data);
+                console.log(data)
+                $('#employee2').val(data.employee);
+                $('#address2').val(data.address);
+                $('#email2').val(data.email);
+                $('#description2').val(data.description)
+            }
+        })
+    })
+
+    var row2;
+    var id2;
+
+    $("editBtn2").on('click',function () {
+        console.log("click");
+
+        row2 = $(this).closest("tr");
+        id2 = row2.find("#id").text();
+        $('#editModal').mdal()
+        $.ajax({
+            url: '/employee/retrieve/' + id2,
             method: "PUT",
             error: (e) => {
                 console.log(e)
@@ -126,7 +174,7 @@ $(document).ready(function () {
           },
           success: function (data) {
             var data = JSON.parse(data);
-            console.log(data.item)
+            console.log(data.employee)
             row.find('#employee').text(data.employee);
             row.find('#address').text(data.address);
             row.find('#email').text(data.email);

@@ -8,7 +8,7 @@
     background: #17D654;
   }
   body{
-    background-image: url('https://ak4.picdn.net/shutterstock/videos/16120024/thumb/1.jpg');
+    background-image: url('http://vanntechcyber.com/wp-content/uploads/2016/09/Employees-together.jpg');
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -17,6 +17,7 @@
     width: 90%;
     margin-left: 50px;
     box-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
+    background-color: transparent;
   }
   #exampleModal{
     box-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
@@ -26,6 +27,9 @@
   #error{
     color: red;
     font-weight: 500;
+  }
+  #myTable{
+    background-color: transparent;
   }
 
   #success{
