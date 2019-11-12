@@ -9,27 +9,35 @@ html
     link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@8")
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
     title Login Form Tutorial
     script(src='/scripts/app.js')
     style.
+      body{
+         background-image: url('http://vanntechcyber.com/wp-content/uploads/2016/09/Employees-together.jpg');
+      }
       .login-form {
-      width: 300px;
       margin: 0 auto;
       font-family: Tahoma, Geneva, sans-serif;
+      width: 40%;
+      box-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
+      background-color: transparent;
+      margin-top:10%;
+      }
+      label{
+        font-size:20px;
       }
       .login-form h1 {
       text-align: center;
       color: #4d4d4d;
-      font-size: 24px;
       padding: 20px 0 20px 0;
       }
       .login-form input[type="password"],
       .login-form input[type="text"] {
-      width: 100%;
       padding: 15px;
-      border: 1px solid #dddddd;
       margin-bottom: 15px;
-      box-sizing:border-box;
       }
       .login-form input[type="submit"] {
       width: 100%;
@@ -42,10 +50,16 @@ html
       color: #ffffff;
       }
   body
-    .login-form
-      h1 Login Form
-      form.login
-        input(type='text', name='username', placeholder='Username', id="username", required='')
-        input(type='password', name='password', placeholder='Password',id="password" required='')
-        button#login.positive.ui.button(type='button' value="login") Login
+    .container
+      .login-form
+        h1 Login Form 
+          br
+          br
+          .container
+            form.login
+              label(for="username") Username:
+              input.form-control(type='text', name='username', placeholder='Username', id="username", required='')
+              label(for="username") Password:
+              input.form-control(type='password', name='password', placeholder='Password',id="password" required='')
+              button#login.positive.ui.button(type='button' value="login") Login
 
