@@ -105,9 +105,8 @@ $(document).ready(function () {
                 console.log((JSON.stringify(data.result)))
                 // $('tbody').html(data)
                 // $('#tbody1').hide()
-                $('tbody').append(`<tr><td>${data.result[0].employee}</td><td>${data.result[0].address}</td><td>${data.result[0].email}</td><td><center><div class="ui buttons">
-                 <button class="ui positive button value = "${data.result[0]._id}" id = "editBtn2 ">Edit</button><div class="or"></div><button class="ui negative button deleteBtn2" type="submit"
-                >Delete</button></div></center>`)     
+                $('tbody').append(`<tr><td>${data.result[0].employee}</td><td>${data.result[0].address}</td><td>${data.result[0].email}</td>>
+                 `)     
                 
             }
         })
@@ -184,15 +183,25 @@ $(document).ready(function () {
         $('#login').on('click', ()=>{
             var username = $('#username').val()
             var password = $('#password').val()
-            $.post({
-                url:'/login',
-                data:{username:username, password:password},
-                success: function(data) {
-                    window.location = '/employee/retrieve/all'
-                    console.log(data);
+            var username1 = "patrick"
+            var password1 = 'patrick23'
+            if(username === username1 && password === password1 ){
+                window.location = '/employee/retrieve/all'
+            }else{
+                alert("uncorrect username and password")
+            }
+            // $.post({
+            //     url:'/login',
+            //     data:{username:username, password:password},
+            //     success: function(data) {
+            //         window.location = '/employee/retrieve/all'
+            //         console.log(data);
                     
-                }
-            })
+            //     },
+            //     error: function(data){
+            //         window.location = "/"
+            //     }
+            // })
         })
     })
 

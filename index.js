@@ -47,14 +47,20 @@ app.all('/login',(req, res)=>{
         username: req.body.username,
         password: req.body.password
     });
-    admin.save((err, doc)=>{
-        if(!err){
-            res.send(doc)
-            console.log(doc)
-        }else{
-            res.status(400).end(JSON.stringify(err))
-        }
-    })
+    var exist = Admin.findOne({username:req.body.username})
+    if(exist == null){
+        admin.save((err, doc)=>{
+            if(!err){
+                res.send(doc)
+                console.log(doc)
+            }else{
+                res.status(400).end(JSON.stringify(err))
+            }
+        })
+    }else{
+        res.send("Error")
+    }
+    
 })
 
 app.get('/employee/retrieve/all', (req, res)=>{
